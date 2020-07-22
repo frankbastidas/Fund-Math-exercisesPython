@@ -173,6 +173,7 @@ for i in range(m):
     R[i,i] = np.linalg.norm(w)
     w=w/np.linalg.norm(w)
     Q[:,i]=w
+
 print("verify ortonormal")  #should to result 1
 print(np.linalg.norm(Q[:,0]))
 print(np.dot(Q[:,0],Q[:,0]))
@@ -180,14 +181,56 @@ print(np.dot(Q[:,0],Q[:,0]))
 print("verify ortogonal")  #should to result 0
 print(np.dot(Q[:,0],Q[:,1]))
 
-print("result of Q^TQ")
-print(Q.T*Q)
+print("result of Q^TQ") # product dot in each vector
+print(np.matmul(Q.T,Q))
 
 # X=QR
 
 print("original matrix")
 print(X)
 print("result of QR decomposition")
-print(Q*R)
+print(np.matmul(Q,R))
 
 
+# %%    Gram-Schmidt
+
+f = lambda x: np.exp(-x) - 2*x - 4 
+
+#buscar valores que pasen el cero, entonces la raiz prodria estar en la mitad
+
+# %% Ejemplo tecnica alternativa (fixed point) despejando 2x de np.exp(-x) - 2*x - 4 
+G = lambda x: (np.exp(-x)-4)/2
+
+x0=-0.75
+ap=[x0]
+
+for i in range(50):
+    x1=G(x0)
+    x0=x1
+    ap.append(x1)
+
+plt.figure(figsize=(20,10))
+plt.plot(ap,'b-o',markersize=15)
+
+
+
+
+# %% Ejemplo tecnica alternativa2 (fixed point) despejando np.exp(-x) de np.exp(-x) - 2*x - 4 
+
+G = lambda x: -np.log(2*x + 4)
+
+x0=-0.75
+ap=[x0]
+
+for i in range(50):
+    x1=G(x0)
+    x0=x1
+    ap.append(x1)
+
+plt.figure(figsize=(20,10))
+plt.plot(ap,'b-o',markersize=15)
+
+
+
+
+# %%
