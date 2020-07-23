@@ -194,11 +194,17 @@ print(np.matmul(Q,R))
 
 # %%    Gram-Schmidt
 
+import numpy as np
+import matplotlib.pyplot as plt
+
 f = lambda x: np.exp(-x) - 2*x - 4 
 
 #buscar valores que pasen el cero, entonces la raiz prodria estar en la mitad
 
 # %% Ejemplo tecnica alternativa (fixed point) despejando 2x de np.exp(-x) - 2*x - 4 
+import numpy as np
+import matplotlib.pyplot as plt
+
 G = lambda x: (np.exp(-x)-4)/2
 
 x0=-0.75
@@ -216,6 +222,8 @@ plt.plot(ap,'b-o',markersize=15)
 
 
 # %% Ejemplo tecnica alternativa2 (fixed point) despejando np.exp(-x) de np.exp(-x) - 2*x - 4 
+import numpy as np
+import matplotlib.pyplot as plt
 
 G = lambda x: -np.log(2*x + 4)
 
@@ -231,6 +239,46 @@ plt.figure(figsize=(20,10))
 plt.plot(ap,'b-o',markersize=15)
 
 
+
+
+# %% Newton-Rapson
+import numpy as np
+import matplotlib.pyplot as plt
+
+g = lambda x: x - (np.exp(-x) - 2*x - 4) / (-np.exp(-x) - 2)
+
+x0=-0.85
+ap=[x0]
+for i in range(50):
+    x1=g(x0)
+    x0=x1
+    ap.append(x0)
+
+plt.figure(figsize=(20,10))
+plt.plot(ap,'b-o',markersize=15)
+plt.savefig('im1.png')
+
+
+# %% Examen 5
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+g = lambda x: x - (x*x-4*x+np.exp(x)-5) / (2*x-4+np.exp(x))
+
+x0=2.5
+ap=[x0]
+for i in range(30):
+    x1=g(x0)
+    x0=x1
+    ap.append(x0)
+
+plt.figure(figsize=(20,10))
+plt.rc('xtick',labelsize=20)
+plt.rc('ytick',labelsize=20)
+plt.plot(ap,'r-o',markersize=15)
+plt.savefig('im1.png')
+ 
 
 
 # %%
