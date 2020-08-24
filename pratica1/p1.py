@@ -268,17 +268,68 @@ g = lambda x: x - (x*x-4*x+np.exp(x)-5) / (2*x-4+np.exp(x))
 
 x0=2.5
 ap=[x0]
-for i in range(30):
+for i in range(25):
     x1=g(x0)
     x0=x1
     ap.append(x0)
 
 plt.figure(figsize=(20,10))
-plt.rc('xtick',labelsize=20)
-plt.rc('ytick',labelsize=20)
-plt.plot(ap,'r-o',markersize=15)
-plt.savefig('im1.png')
+plt.rc('xtick',labelsize=25)
+plt.rc('ytick',labelsize=25)
+plt.xlabel('Time step(k)', fontsize=25)
+plt.ylabel('X1', fontsize=25)
+#plt.grid()
+plt.plot(ap,'r-o',markersize=12)
+plt.savefig('im2.png')
  
+h = lambda x: x*x-4*x+np.exp(x)-5
+doubled = [h(num) for num in range(-3,4)]
+print(doubled)
+print(ap[len(ap)-1])
 
+
+# %%
+# 
+#  fourier
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+x=np.linspace(-8,8,500)
+
+y=np.zeros(len(x))
+plt.figure(figsize=(30,10))
+plt.rc('xtick',labelsize=30)
+plt.rc('ytick',labelsize=30)
+
+for k in range(0,16):
+    i= 2*k + 1
+    tmp=np.sin(i*x)/i
+    y=y+4*tmp/np.pi
+    if k%4==0:
+        plt.plot(x,y,linewidth=3,label='%d terms' %(k+1))
+plt.legend(loc='best',fontsize=15)
+plt.show()
+
+# %%
+# 
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+x=np.linspace(-8, 8,500)
+y=np.zeros(len(x))
+plt.figure(figsize=(30,10))
+plt.rc('xtick',labelsize=30)
+plt.rc('ytick',labelsize=30)
+
+for k in range(1,6): 
+    signL=(-1)^(k+1)
+    tmp=signL*np.sin(k*x)/k
+    y=y+2*tmp
+    if k%1==0:
+        plt.plot(x,y,linewidth=3,label='%d terms' %(k+1))
+plt.legend(loc='best',fontsize=15)
+plt.show()
 
 # %%
